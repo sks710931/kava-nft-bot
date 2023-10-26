@@ -1,0 +1,20 @@
+{
+  "name": "octo-bots",
+  "version": "1.0.0",
+  "description": "bots to perform tasks in background",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "commonjs",
+  "author": "Shivam Singh (https://github.com/sks710931)",
+  "license": "ISC",
+  "dependencies": {
+    "@ethersproject/abi": "^5.7.0",
+    "axios": "^1.5.1",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.8.0",
+    "mongoose": "^7.6.3",
+    "web3": "^4.2.1"
+  }
+}
