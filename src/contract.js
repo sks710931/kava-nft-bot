@@ -11,6 +11,7 @@ const ERC721InterfaceId = "0x80ac58cd";
 async function main() {
   try {
     await connectDB();
+    for(let k = 0; k< 100000000; k++){
     const files = fs.readdirSync("src/data");
     let counter = 0;
     for (file of files) {
@@ -19,7 +20,7 @@ async function main() {
       for (item of data) {
         counter += 1;
         try {
-          console.log("processing :", counter);
+          console.log(`Round ${k} processing ${counter}`);
           const prov = new JsonRpcProvider(process.env.KAVA_RPC);
           const instance = new BaseContract(
             item.Address,
@@ -109,6 +110,7 @@ async function main() {
           console.log("Contract Insertion skipped:", item.Address);
         }
       }
+    }
     }
   } catch {}
 }
