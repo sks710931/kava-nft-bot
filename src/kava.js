@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 async function main(){
     try{
         await connectDB();
-        setInterval(readContracts, 90000);
+        setInterval(readContracts, 30000);
         // const updateResult = updateContracts();
         // if(updateResult){
         //     setInterval(updateContracts, 5000);

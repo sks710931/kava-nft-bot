@@ -8,18 +8,18 @@ module.exports = async function readContracts() {
     if (trackerData) {
       console.log(`Processing Page ${trackerData.nextPageNumber}`);
       const result = await axios.get(
-        `${process.env.KAVA_API}?module=contract&action=listcontracts&page=${trackerData.nextPageNumber}&offset=1000`
+        `${process.env.KAVA_API}?module=contract&action=listcontracts&page=${trackerData.nextPageNumber}&offset=10`
       );
       console.log("Contract Fetch Completed");
-      if (result.data.result.length === 1000) {
-        console.log("Contracts Fetched :", result.data.result.length);
+      console.log("Contracts Fetched :", result.data.result.length);
         const contracts = result.data.result;
-        try {
           fs.writeFileSync(
             `src/data/page-${trackerData.nextPageNumber}.json`,
             JSON.stringify(contracts, {}, 4), 'utf-8'
           );
           console.log("inserted contract page");
+      if (result.data.result.length === 10) {
+        try {
           const tracker = await PageTracker.findOne().exec();
           tracker.nextPageNumber = tracker.nextPageNumber + 1;
           tracker.processedPageNumber = tracker.processedPageNumber + 1;
@@ -28,20 +28,7 @@ module.exports = async function readContracts() {
         } catch (e) {
           console.log("skipped page", e);
         }
-      } else {
-        console.log("Contracts Fetched :", result.data.result.length);
-        const contracts = result.data.result;
-
-        try {
-          fs.writeFileSync(
-            `src/data/page-${trackerData.nextPageNumber}.json`,
-            JSON.stringify(contracts, {}, 4), 'utf-8'
-          );
-          console.log("inserted contract page");
-        } catch (e) {
-          console.log("skipped page", e);
-        }
-      }
+      } 
     } else {
       const tracker = new PageTracker({
         nextPageNumber: 1,
