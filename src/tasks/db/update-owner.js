@@ -27,6 +27,7 @@ const updateOwners = async (event) => {
         owner: toAddress,
       });
       await newOwner.save();
+      console.log("New Owner Updated");
     }
   } catch (e) {
     console.log("Error updating owner", e);
