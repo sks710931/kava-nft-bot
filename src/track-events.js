@@ -1,6 +1,7 @@
 require("dotenv").config();
 const {connectDB, disconnectDB} = require("./config/db.config");
 const insertTransfers = require("./tasks/db/insert-transfer");
+const updateOwners = require("./tasks/db/update-owner");
 const mongoose = require("mongoose");
 
 const Web3 = require("web3");
@@ -46,6 +47,7 @@ const parseEvents = async (error, result) => {
       console.log("TokenId:", result.topics[3]);
       console.log("Inserting transfer event for log id:" ,result.id)
       await insertTransfers(result);
+      await updateOwners(result);
     }
   }
 };
