@@ -2,7 +2,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const {  NFTTransfer } = require("../../schema/contracts");
 const {getAddress} = require("@ethersproject/address");
-
+const {defaultAbiCoder} = require("@ethersproject/abi");
 const insertTransfers = async (event) => {
     try{
         const fromAddress = defaultAbiCoder.decode(['address'], event.topics[1])
