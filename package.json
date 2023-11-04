@@ -12,12 +12,12 @@
   "license": "ISC",
   "dependencies": {
     "@ethersproject/abi": "^5.7.0",
-    "axios": "^1.5.1",
-    "dotenv": "^16.3.1",
     "@ethersproject/address": "^5.7.0",
     "@ethersproject/contracts": "^5.5.0",
     "@ethersproject/providers": "^5.5.3",
     "@ethersproject/units": "^5.5.0",
+    "axios": "^1.5.1",
+    "dotenv": "^16.3.1",
     "mongoose": "^7.6.3",
     "nodemon": "^3.0.1",
     "web3": "^1.10.2"

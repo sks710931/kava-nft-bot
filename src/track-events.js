@@ -1,7 +1,12 @@
 require("dotenv").config();
+const {connectDB, disconnectDB} = require("./config/db.config");
+const insertTransfers = require("./tasks/db/insert-transfer");
+const mongoose = require("mongoose");
+
 const Web3 = require("web3");
 
 async function startTrace() {
+    await connectDB();
   var options = {
     reconnect: {
       auto: true,
@@ -34,10 +39,13 @@ const parseEvents = async (error, result) => {
     console.log("Event received");
 
     if (result.topics[0] === erc721TransferSign && result.topics[3]) {
-      console.log("NFT Send Detected", result);
+      console.log("NFT Send Detected");
       console.log("Contract Address: ", result.address);
       console.log("From:", result.topics[1]);
       console.log("To:", result.topics[2]);
+      console.log("TokenId:", result.topics[3]);
+      console.log("Inserting transfer event for log id:" ,result.id)
+      await insertTransfers(result);
     }
   }
 };
