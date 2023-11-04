@@ -6,7 +6,7 @@ const {defaultAbiCoder} = require("@ethersproject/abi");
 const insertTransfers = async (event) => {
     try{
         const fromAddress = defaultAbiCoder.decode(['address'], event.topics[1])
-        const toAddress = defaultAbiCoder.decode(['address'], event.topics[1])
+        const toAddress = defaultAbiCoder.decode(['address'], event.topics[2])
         const transfer = new NFTTransfer({
             timestamp: Date.now(),
             blockNumber: event.blockNumber,
