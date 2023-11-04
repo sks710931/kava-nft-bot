@@ -1,34 +1,38 @@
 require("dotenv").config();
-const mongoose = require("mongoose");
-const { ERC721NFTOwner } = require("../../schema/contracts");
+const sql = require("mssql");
+const { sqlConfig } = require("../../config/db.config");
 const { getAddress } = require("@ethersproject/address");
 const { defaultAbiCoder } = require("@ethersproject/abi");
 
 const updateOwners = async (event) => {
   try {
     console.log("Updating ERC721 token Owner");
-    const toAddress = getAddress(
-      defaultAbiCoder.decode(["address"], event.topics[2])[0]
-    );
+    const pool = await sql.connect(sqlConfig);
+    const ps = pool.request();
+    ps.input("address", sql.NVarChar(1000), event.address);
+    ps.input("tokenId", sql.Int, parseInt(event.topics[3]));
 
-    const owner = await ERC721NFTOwner.findOne({
-      nftContractAddress: event.address,
-      tokenId: parseInt(event.topics[3]),
-    }).exec();
-    if (owner && owner.owner) {
-      owner.nftContractAddress = event.address;
-      (owner.tokenId = parseInt(event.topics[3])), (owner.owner = toAddress);
-      await owner.save();
-      console.log("Owner Updated");
+    const res = await ps.query(
+      "select Owner, NftContractAddress, TokenId from ERC721NFTOwners where NftContractAddress=@address AND TokenId=@tokenId"
+    );
+    console.log(res.recordset);
+    const request = pool.request();
+    request.input("address", sql.NVarChar(1000), event.address);
+    request.input("tokenId", sql.Int, parseInt(event.topics[3]));
+    request.input(
+      "owner",
+      sql.NVarChar(1000),
+      getAddress(defaultAbiCoder.decode(["address"], event.topics[2])[0])
+    );
+    if (res.recordset.length === 0) {
+      await request.query(`insert into ERC721NFTOwners (NftContractAddress, TokenId, Owner) Values 
+        (@address, @tokenId, @owner)`);
     } else {
-      const newOwner = new ERC721NFTOwner({
-        nftContractAddress: event.address,
-        tokenId: parseInt(event.topics[3]),
-        owner: toAddress,
-      });
-      await newOwner.save();
-      console.log("New Owner Updated");
+      await request.query(`
+      update table ERC721NFTOwners set Owner=@owner where NftContractAddress=@address and TokenId=@tokenId
+      `);
     }
+    console.log("New Owner Updated");
   } catch (e) {
     console.log("Error updating owner", e);
   }
