@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const Web3 = require("web3");
 
 async function startTrace() {
-    await connectDB();
+    
   var options = {
     reconnect: {
       auto: true,
