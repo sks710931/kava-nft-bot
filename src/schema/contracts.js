@@ -15,26 +15,11 @@ const pageTrackerSchema = new mongoose.Schema({
 });
 
 const networkContractsSchema = new mongoose.Schema({
-    ABI:{
-        type: Object
-    },
-    Address: {
+    address: {
         type: String,
         require:true,
         index: true,
         unique: true,
-    },
-    CompilerVersion:{
-        type: String,
-    },
-    ContractName:{
-        type: String,
-    },
-    OptimizationUsed:{
-        type: Boolean
-    },
-    IsNFTContract:{
-        type: Boolean
     },
     IsProcessed:{
         type: Boolean
@@ -42,6 +27,14 @@ const networkContractsSchema = new mongoose.Schema({
     NFTContractType:{
         type:String,
         index: true
+    },
+    deployer:{
+        type: String,
+        index: true,
+    },
+    deploymentTx:{
+        type: String,
+        index: true,
     }
 })
 
