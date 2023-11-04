@@ -5,18 +5,20 @@ const {getAddress} = require("@ethersproject/address");
 
 const insertTransfers = async (event) => {
     try{
+        const fromAddress = defaultAbiCoder.decode(['address'], event.topics[1])
+        const toAddress = defaultAbiCoder.decode(['address'], event.topics[1])
         const transfer = new NFTTransfer({
             timestamp: Date.now(),
             blockNumber: event.blockNumber,
-            from: getAddress(event.topics[1]),
+            from: getAddress(fromAddress[0]),
             nftContractAddress: getAddress(event.address),
-            to:getAddress(event.topics[2]),
+            to:getAddress(toAddress[0]),
             tokenId: parseInt(event.topics[3]),
         });
         await transfer.save();
         console.log("Transfer Inserted");
     }catch(e){
-        console.log("Error writing data to the db.", event.id);
+        console.log("Error writing data to the db.", e);
     }
 }
 module.exports = insertTransfers;
