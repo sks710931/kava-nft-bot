@@ -87,11 +87,11 @@ const nftTransfers = new mongoose.Schema({
   },
 });
 // Create the model
-const PageTracker = mongoose.model("PageTracker", pageTrackerSchema);
+const PageTracker = mongoose.model("page-tracker", pageTrackerSchema);
 const NetworkContract = mongoose.model(
-  "NetworkContracts",
+  "contracts",
   networkContractsSchema
 );
-const NFTOwner = mongoose.model("NftOwners", nftOwners);
-const NFTTransfer = mongoose.model("NftTransfers", nftTransfers);
+const NFTOwner = mongoose.model("nft-owners", nftOwners);
+const NFTTransfer = mongoose.model("nft-transfers", nftTransfers);
 module.exports = { PageTracker, NetworkContract, NFTOwner, NFTTransfer };
