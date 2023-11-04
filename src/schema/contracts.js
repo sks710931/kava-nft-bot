@@ -92,6 +92,6 @@ const NetworkContract = mongoose.model(
   "contracts",
   networkContractsSchema
 );
-const NFTOwner = mongoose.model("nft-owners", nftOwners);
-const NFTTransfer = mongoose.model("nft-transfers", nftTransfers);
-module.exports = { PageTracker, NetworkContract, NFTOwner, NFTTransfer };
+const ERC721NFTOwner = mongoose.model("erc721-nft-owners", nftOwners);
+const ERC721NFTTransfer = mongoose.model("erc721-nft-transfers", nftTransfers);
+module.exports = { PageTracker, NetworkContract, ERC721NFTOwner, ERC721NFTTransfer };

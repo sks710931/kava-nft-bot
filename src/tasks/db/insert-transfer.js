@@ -1,13 +1,13 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const {  NFTTransfer } = require("../../schema/contracts");
+const {  ERC721NFTTransfer } = require("../../schema/contracts");
 const {getAddress} = require("@ethersproject/address");
 const {defaultAbiCoder} = require("@ethersproject/abi");
 const insertTransfers = async (event) => {
     try{
         const fromAddress = defaultAbiCoder.decode(['address'], event.topics[1])
         const toAddress = defaultAbiCoder.decode(['address'], event.topics[2])
-        const transfer = new NFTTransfer({
+        const transfer = new ERC721NFTTransfer({
             timestamp: Date.now(),
             blockNumber: event.blockNumber,
             from: getAddress(fromAddress[0]),
