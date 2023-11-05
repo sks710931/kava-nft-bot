@@ -19,7 +19,7 @@ let latest = 0;
          
         
         const filter = {
-            fromBlock: latest - 30000,
+            fromBlock: latest - 10000,
             toBlock: latest,
             topics: ['0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef', null, null, null]
           };
