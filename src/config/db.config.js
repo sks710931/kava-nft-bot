@@ -1,5 +1,16 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
+const { Sequelize } = require('sequelize');
+
+const db = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PWD, {
+  host: process.env.DB_SERVER,
+  logging: false,
+  define:{
+    freezeTableName: true,
+    timestamps:false,
+  },
+  dialect: 'mssql'/* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
+});
 
 const sqlConfig = {
   user: process.env.DB_USER,
@@ -49,4 +60,4 @@ const disconnectDB = async () => {
   }
 };
 
-module.exports = { connectDB, disconnectDB, sqlConfig };
+module.exports = { connectDB, disconnectDB, sqlConfig, db };

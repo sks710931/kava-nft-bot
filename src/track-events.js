@@ -1,5 +1,5 @@
 require("dotenv").config();
-const {connectDB, disconnectDB} = require("./config/db.config");
+const {db} = require("./config/db.config");
 const insertTransfers = require("./tasks/db/insert-transfer");
 const updateOwners = require("./tasks/db/update-owner");
 const mongoose = require("mongoose");
@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const Web3 = require("web3");
 
 async function startTrace() {
-    
+    await db.sync();
   var options = {
     reconnect: {
       auto: true,
