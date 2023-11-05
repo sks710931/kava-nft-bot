@@ -14,19 +14,13 @@ async function getLogs(){
     const offset = 5000;
     let endBlock = 0;
 let latest = 0;
-    do{
+    
          latest = await web3.eth.getBlockNumber();
-         startBlock = latest - 30000;
-         console.log(latest)
-         endBlock = startBlock;
-        if(latest < endBlock+offset){
-            endBlock = latest
-          }else {
-            endBlock +=offset;
-          }
+         
+        
         const filter = {
-            fromBlock: startBlock,
-            toBlock: endBlock,
+            fromBlock: latest - 30000,
+            toBlock: latest,
             topics: ['0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef', null, null, null]
           };
           console.log(`blocks ${startBlock} to ${endBlock}`);
@@ -41,7 +35,7 @@ let latest = 0;
           }
           startBlock=endBlock+1;
           console.log("Total Transfers:", logs.length)
-    }while(latest > endBlock)
+    
     
 
 }
