@@ -14,7 +14,7 @@ const erc721NFT = db.define('ERC721NFTs', {
     ContractAddress:{
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
+        unique: false,
     },
     TokenId: {
         type: DataTypes.INTEGER,

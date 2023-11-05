@@ -3,8 +3,10 @@ const fs= require("fs");
 const updateCollection = require("./tasks/db/update-erc721-collection");
 const updateNFT = require("./tasks/db/update-nft");
 const model = require("./schema/model");
+const {db} = require("./config/db.config");
 
 async function process(){
+    await db.sync()
     let contracts = fs.readFileSync("src/data/contracts.json");
     contracts = JSON.parse(contracts);
     for(let contract of contracts){
