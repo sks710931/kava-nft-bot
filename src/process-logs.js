@@ -1,24 +1,23 @@
 require('dotenv').config();
 const Web3 = require("web3");
-
+const {db} = require("./config/db.config");
 const insertTransfers = require("./tasks/db/insert-transfer");
 const updateOwners = require("./tasks/db/update-owner");
 const updateErc721contracts = require("./tasks/db/update-erc721-collection");
 const updateERC721NFT = require("./tasks/db/update-nft");
 
 
-const web3= new Web3(process.env.KAVA_DATA_RPC);
+const web3= new Web3("https://eth-rpc-api.thetatoken.org/rpc");
 
 async function getLogs(){
+  await db.sync();
     let startBlock = 1;
     const offset = 5000;
     let endBlock = 0;
 let latest = 0;
     do{
          latest = await web3.eth.getBlockNumber();
-         startBlock = latest - 30000;
          console.log(latest)
-         endBlock = startBlock;
         if(latest < endBlock+offset){
             endBlock = latest
           }else {
@@ -32,11 +31,11 @@ let latest = 0;
           console.log(`blocks ${startBlock} to ${endBlock}`);
           const logs = await web3.eth.getPastLogs(filter);
           for(let log of logs){
-            // console.log("Insert Log",log.id);
-            // await insertTransfers(log);
-            // console.log("Update Owner",log.id);
-            // await updateOwners(log);
-            // await updateErc721contracts(log);
+            console.log("Insert Log",log.id);
+            await insertTransfers(log);
+            console.log("Update Owner",log.id);
+            await updateOwners(log);
+            await updateErc721contracts(log);
 
           }
           startBlock=endBlock+1;
