@@ -35,7 +35,7 @@ let latest = 0;
 
           }
           startBlock=endBlock+1;
-          
+          console.log("Total Transfers:", logs.length)
     }while(latest > endBlock)
     
 
