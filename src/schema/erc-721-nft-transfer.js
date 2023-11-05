@@ -10,11 +10,6 @@ const erc721NftTransfers = db.define('ERC721NFTTransfers', {
         autoIncrement: true,
         allowNull: false,
     },
-    CreatedAt:{
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: Date.now()
-    },
     SentTo:{
         type: DataTypes.STRING(100),
         allowNull: false,
