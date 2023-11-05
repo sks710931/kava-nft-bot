@@ -12,7 +12,6 @@ const updateOwners = async (event) => {
         TokenId: parseInt(event.topics[3]),
       },
     });
-    console.log(owner);
     if (owner && owner.dataValues && owner.dataValues.Owner) {
       await model.ERC721NFTOwners.update(
         {

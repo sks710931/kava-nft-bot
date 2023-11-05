@@ -90,6 +90,13 @@ const updateERC721NFT = async (tokenId, address) => {
           });
         }
         console.log(`${name} inserted successfully`);
+      }else{
+        await model.ERC721NFT.create({
+            ContractAddress: address,
+            TokenId: tokenId,
+          });
+
+          console.log("Blank NFT Inserted!")
       }
     } else {
       console.log(`${nftObj.dataValues.Name} already exists!`);
