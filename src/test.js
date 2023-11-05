@@ -1,13 +1,15 @@
 require("dotenv").config();
 const {db} = require('./config/db.config');
-const erc721NFTOwners = require('./schema/erc-721-nnft-owners');
+const {Contract} = require("@ethersproject/contracts");
+const { JsonRpcProvider} = require("@ethersproject/providers");
+const ercAbi = require("./abi/ERC721.json");
+const updateERC721NFT = require("./tasks/db/update-nft");
+
+
 const test = async () => {
-   await db.sync();
-   console.log("All Database Synced");
-    const data = await erc721NFTOwners.findAll({where:{Owner: "0xee69E72B0A1524329e6dD66D8c7e974D939e7690"}});
-   for(let d of data){
-    console.log(d.dataValues.NftContractAddress);
-   }
+        await db.sync();
+       await updateERC721NFT(1,"0xA366C1E80642Abcaa190Ed4Fd7C9bA642228053b");
+        //await updateERC721NFT(2553,"0x35361C9c2a324F5FB8f3aed2d7bA91CE1410893A");
 
 }
 test();

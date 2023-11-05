@@ -3,6 +3,7 @@ const {db} = require("./config/db.config");
 const insertTransfers = require("./tasks/db/insert-transfer");
 const updateOwners = require("./tasks/db/update-owner");
 const updateErc721contracts = require("./tasks/db/update-erc721-collection");
+const updateERC721NFT = require("./tasks/db/update-nft");
 const mongoose = require("mongoose");
 
 const Web3 = require("web3");
@@ -46,6 +47,7 @@ const parseEvents = async (error, result) => {
       await insertTransfers(result);
       await updateOwners(result);
       await updateErc721contracts(result);
+      await updateERC721NFT(parseInt(result.topics[3]), result.address);
       //Check and update contract info
     }
   }
