@@ -27,12 +27,14 @@ const updateOwners = async (event) => {
     if (res.recordset.length === 0) {
       await request.query(`insert into ERC721NFTOwners (NftContractAddress, TokenId, Owner) Values 
         (@address, @tokenId, @owner)`);
+        console.log("New Owner Updated");
     } else {
       await request.query(`
-      update table ERC721NFTOwners set Owner=@owner where NftContractAddress=@address and TokenId=@tokenId
+      update ERC721NFTOwners set Owner=@owner where NftContractAddress=@address and TokenId=@tokenId
       `);
+      console.log("Existing Owner Updated");
     }
-    console.log("New Owner Updated");
+    
   } catch (e) {
     console.log("Error updating owner", e);
   }
