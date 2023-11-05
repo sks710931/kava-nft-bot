@@ -1,11 +1,11 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const { connectDB, disconnectDB } = require("./config/db.config");
-const { NetworkContracts } = require("./schema/contracts");
+const { connectDB, disconnectDB } = require("../config/db.config");
+const { NetworkContracts } = require("./contracts");
 const { JsonRpcProvider, BaseContract } = require("ethers");
 const { Interface } = require("@ethersproject/abi");
 const fs = require("fs");
-const erc165Abi = require("./abi/ERC165.json");
+const erc165Abi = require("../abi/ERC165.json");
 const ERC1155InterfaceId = "0xd9b67a26";
 const ERC721InterfaceId = "0x80ac58cd";
 async function main() {
