@@ -26,11 +26,11 @@ let latest = 0;
           console.log(`blocks ${startBlock} to ${endBlock}`);
           const logs = await web3.eth.getPastLogs(filter);
           for(let log of logs){
-            // console.log("Insert Log",log.id);
-            // await insertTransfers(log);
-            // console.log("Update Owner",log.id);
-            // await updateOwners(log);
-            // await updateErc721contracts(log);
+            console.log("Insert Log",log.id);
+            await insertTransfers(log);
+            console.log("Update Owner",log.id);
+            await updateOwners(log);
+            await updateErc721contracts(log);
 
           }
           startBlock=endBlock+1;
