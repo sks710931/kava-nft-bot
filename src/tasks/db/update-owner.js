@@ -29,8 +29,14 @@ const updateOwners = async (event) => {
       );
       console.log("Existing Owner Inserted");
     } else {
-      
-      console.log("Existing Owner Updated");
+      await model.ERC721NFTOwners.create({
+        NftContractAddress: event.address,
+        TokenId: parseInt(event.topics[3]),
+        Owner: getAddress(
+          defaultAbiCoder.decode(["address"], event.topics[2])[0]
+        ),
+      });
+      console.log("New Owner Inserted");
     }
   } catch (e) {
     console.log("Error updating owner", e);
