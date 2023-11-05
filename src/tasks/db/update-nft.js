@@ -23,7 +23,9 @@ const updateERC721NFT = async (tokenId, address) => {
       let description = "";
       let attributes = [];
       let image = "";
-      let tokenUri = await contract.tokenURI(tokenId);
+      let tokenUri = ""
+      tokenUri = await contract.tokenURI(tokenId);
+      
       let metadata = {};
       var isBase64 = base64regex.test(tokenUri.split(",")[1]);
       if (isBase64) {
@@ -72,7 +74,10 @@ const updateERC721NFT = async (tokenId, address) => {
         tokenUri.includes("http://")
       ) {
         //use actual uri
-        const result = await axios.get(tokenUri);
+        
+          result = await axios.get(tokenUri);
+        
+        
         metadata = result.data;
         if (metadata) {
           name = metadata.name;
@@ -103,6 +108,12 @@ const updateERC721NFT = async (tokenId, address) => {
     }
   } catch (e) {
     console.log("Error occured while updating the NFT", e.message);
+    await model.ERC721NFT.create({
+      ContractAddress: address,
+      TokenId: tokenId,
+    });
+
+    console.log("Blank NFT Inserted!")
   }
 };
 module.exports = updateERC721NFT;

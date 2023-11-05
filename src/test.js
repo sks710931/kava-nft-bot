@@ -8,7 +8,7 @@ const updateERC721NFT = require("./tasks/db/update-nft");
 
 const test = async () => {
         await db.sync();
-       await updateERC721NFT(8017383,"0x9e66EBa102B77Fc75cD87b5e60141b85573BC8e8");
+       await updateERC721NFT(24171814,"0x04866796aabB6B58e6bC4d91A2aE99105b2C58AE");
         //await updateERC721NFT(2553,"0x35361C9c2a324F5FB8f3aed2d7bA91CE1410893A");
 
 }
