@@ -12,7 +12,7 @@ const web3= new Web3("https://eth-rpc-api.thetatoken.org/rpc");
 async function getLogs(){
   await db.sync();
     let startBlock = 1;
-    const offset = 5000;
+    const offset = 1000;
     let endBlock = 0;
 let latest = 0;
     do{
