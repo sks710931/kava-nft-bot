@@ -4,7 +4,7 @@ const { JsonRpcProvider } = require("@ethersproject/providers");
 const ercAbi = require("./../../abi/ERC721.json");
 const model = require("../../schema/model");
 const { default: axios } = require("axios");
-
+const {parseUnits, formatUnits} = require("@ethersproject/units");
 const base64regex =
   /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
 const updateERC721NFT = async (tokenId, address) => {
@@ -17,7 +17,7 @@ const updateERC721NFT = async (tokenId, address) => {
       },
     });
     if (!nftObj) {
-      const provider = new JsonRpcProvider(process.env.KAVA_RPC);
+      const provider = new JsonRpcProvider(process.env.RPC_URL);
       const contract = new Contract(address, ercAbi, provider);
       let name = "";
       let description = "";

@@ -15,7 +15,7 @@ const erc721NFTOwners = db.define('ERC721NFTOwners',{
         
     },
     TokenId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
     },
     Owner:{

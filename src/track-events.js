@@ -19,7 +19,7 @@ async function startTrace() {
     },
   };
   const web3 = new Web3(
-    new Web3.providers.WebsocketProvider(process.env.KAVA_WS),
+    new Web3.providers.WebsocketProvider(process.env.WS_URL),
     options
   );
 

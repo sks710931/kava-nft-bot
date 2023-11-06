@@ -8,12 +8,12 @@ const updateERC721NFT = require("./tasks/db/update-nft");
 const Web3 = require("web3");
 
 const test = async () => {
-        const web3= new Web3("https://eth-rpc-api.thetatoken.org/rpc");
-        const provider = new JsonRpcProvider("https://eth-rpc-api.thetatoken.org/rpc");
+        const web3= new Web3("http://172.190.238.225:18888/rpc");
+        const provider = new JsonRpcProvider("http://172.190.238.225:18888/rpc");
         const block = await provider.getBlockNumber();
         const filter = {
-                fromBlock: block-4000,
-                toBlock: block,
+                fromBlock: 22000000,
+                toBlock: 22004000,
                 topics: ['0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef', null, null, null]
               };
               

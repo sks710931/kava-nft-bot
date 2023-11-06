@@ -2,6 +2,7 @@ require("dotenv").config();
 const model = require('../../schema/model')
 const {defaultAbiCoder} = require("@ethersproject/abi");
 const {getAddress} = require("@ethersproject/address");
+const {parseUnits, formatUnits} = require("@ethersproject/units");
 const insertTransfers = async (event) => {
     try{
         const fromAddress = defaultAbiCoder.decode(['address'], event.topics[1])
@@ -10,7 +11,7 @@ const insertTransfers = async (event) => {
             SentTo:getAddress(toAddress[0]),
             SentFrom:getAddress(fromAddress[0]),
             BlockNumber:event.blockNumber,
-            TokenId:parseInt(event.topics[3]),
+            TokenId:event.topics[3],
             NFTContractAddress: event.address,
             TxHash: event.transactionHash
         });
