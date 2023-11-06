@@ -33,13 +33,19 @@ async function getLogs() {
     };
     console.log(`blocks ${latest - 100} to ${latest}`);
     const logs = await web3.eth.getPastLogs(filter);
+    console.log(`${logs.length} logs received`);
     for (let log of logs) {
       
       let result = false;
       try{
+        console.log("Building contract")
         const contract = new Contract(log.address, ercAbi.abi, provider);
+        console.log(contract)
         result = await contract.supportsInterface(ERC721InterfaceId);
-      }catch{}
+        console.log(`${log.address} ${result ? 'does' : "doesn't"} supports ERC721 Interface `);
+      }catch(e){
+        console.log(`${log.address} ${result ? 'does' : "doesn't"} supports ERC721 Interface `,e.message);
+      }
       try{
         if(!result){
           const contract = new Contract(log.address, abi721, provider);
@@ -48,7 +54,9 @@ async function getLogs() {
           result=true;
         }
         }
-      }catch{}
+      }catch(e){
+        console.log(`${log.address} ${result ? 'does' : "doesn't"} supports ERC721 Interface `, e.message);
+      }
       
       if (log.topics.length === 4 && result) {
 
