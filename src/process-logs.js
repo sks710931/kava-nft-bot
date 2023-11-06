@@ -58,14 +58,12 @@ async function getLogs() {
       }
       
       if (log.topics.length === 4 && result) {
-
-        console.log(formatUnits(log.topics[3],0))
         console.log("Insert Log", log);
         await insertTransfers(log);
         console.log("Update Owner", log.id);
         await updateOwners(log);
-        await updateErc721contracts(log);
-        await updateERC721NFT(formatUnits(log.topics[3],0), log.address);
+        // await updateErc721contracts(log);
+        // await updateERC721NFT(formatUnits(log.topics[3],0), log.address);
       }
     }
     console.log("Total Transfers:", logs.length);

@@ -1,10 +1,10 @@
 require('dotenv').config();
 const Web3 = require("web3");
 
-const insertTransfers = require("./tasks/db/insert-transfer");
-const updateOwners = require("./tasks/db/update-owner");
-const updateErc721contracts = require("./tasks/db/update-erc721-collection");
-const updateERC721NFT = require("./tasks/db/update-nft");
+const insertTransfers = require("../tasks/db/insert-transfer");
+const updateOwners = require("../tasks/db/update-owner");
+const updateErc721contracts = require("../tasks/db/update-erc721-collection");
+const updateERC721NFT = require("../tasks/db/update-nft");
 
 
 const web3= new Web3(process.env.KAVA_DATA_RPC);

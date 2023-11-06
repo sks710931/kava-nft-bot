@@ -1,9 +1,9 @@
 require("dotenv").config();
 const fs= require("fs");
-const updateCollection = require("./tasks/db/update-erc721-collection");
-const updateNFT = require("./tasks/db/update-nft");
-const model = require("./schema/model");
-const {db} = require("./config/db.config");
+const updateCollection = require("../tasks/db/update-erc721-collection");
+const updateNFT = require("../tasks/db/update-nft");
+const model = require("../schema/model");
+const {db} = require("../config/db.config");
 
 async function process(){
     await db.sync()
