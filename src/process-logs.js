@@ -40,7 +40,6 @@ async function getLogs() {
       try{
         console.log("Building contract")
         const contract = new Contract(log.address, ercAbi.abi, provider);
-        console.log(contract)
         result = await contract.supportsInterface(ERC721InterfaceId);
         console.log(`${log.address} ${result ? 'does' : "doesn't"} supports ERC721 Interface `);
       }catch(e){
